@@ -100,24 +100,44 @@
       ]
     },
     {
-      "titulo": "Filmes",
+      "titulo": "Imersão React - Vídeos Extras",
       "cor": "orange",
       "videos": [
         {
-          "titulo": "Interestellar",
-          "url": "https://www.youtube.com/watch?v=frD_IiY_A3E"
+          "titulo": "Do Zero ao React | Como fazer um React e aprender a ideia do Virtual DOM na prática",
+          "url": "https://www.youtube.com/watch?v=5MzOCxSWrrc"
         },
         {
-          "titulo": "Gattaca",
-          "url": "https://www.youtube.com/watch?v=Dl0tYLbrhhs"
+          "titulo": "O que todo projeto deveria ter? GitHub PRO + Projetos Organizados + Linter + EditorConfig",
+          "url": "https://www.youtube.com/watch?v=yMRSDdifGW8"
         },
         {
-          "titulo": "A Chegada",
-          "url": "https://www.youtube.com/watch?v=rNciXGzYZms"
+          "titulo": "Estilização Imersão React 01 - Estilos globais, reset e Menu",
+          "url": "https://www.youtube.com/watch?v=nDxp3YEpR1E&list=PLbcp5RKTX5wNF34qxISyWY6kignmhBQRT"
         },
         {
-          "titulo": "Feitiço do Tempo",
-          "url": "https://www.youtube.com/watch?v=zi8d69P9NvI"
+          "titulo": "Como criar app android e ios com JavaScript: Spotcast com React Native",
+          "url": "https://www.youtube.com/watch?v=k1vdmXDgMJI&list=PLTcmLKdIkOWkkBSilAr6iqdnSDXdiiyIq"
+        },
+        {
+          "titulo":"Estilização Imersão React 02 - Banner",
+          "url": "https://www.youtube.com/watch?v=Lltrp9QiL40&list=PLbcp5RKTX5wNF34qxISyWY6kignmhBQRT&index=2"
+        },
+        {
+          "titulo":"Estilização Imersão React 03 - Carousel e Footer",
+          "url":"https://www.youtube.com/watch?v=HEPOH4HbArk&list=PLbcp5RKTX5wNF34qxISyWY6kignmhBQRT&index=3"
+        },
+        {
+          "titulo":"Linear Gradient e Styled Components no React Native | React Native: Spotcast #02",
+          "url":"https://www.youtube.com/watch?v=Z7ok4dkEidY&list=PLTcmLKdIkOWkkBSilAr6iqdnSDXdiiyIq&index=2"
+        },
+        {
+          "titulo":"Fazendo a interface do Player do Spotify | App em JavaScript para Android e iOS Spotcast #03",
+          "url":"https://www.youtube.com/watch?v=UTGWsO-nYwM&list=PLTcmLKdIkOWkkBSilAr6iqdnSDXdiiyIq&index=3"
+        },
+        {
+          "titulo":"O que é uma Single-Page Application? (SPA)",
+          "url":"https://www.youtube.com/watch?v=opxYpCKzlLk"
         }
       ]
     },

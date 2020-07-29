@@ -1,17 +1,20 @@
 import React from  'react';
+import {Link} from 'react-router-dom';
 import Logo from '../../assets/img/kreflix_logo.png';
 import './Menu.css'
 import Button from '../Button'
 //import ButtonLink from '../ButtonLink';
 
+// não precisa do as={Link} pq o component Button está como Link já
+
 function Menu() {
     return (
         <nav className="Menu">
-            <a href="/">
+            <Link to="/">
                 <img className="Logo" src={Logo}  alt="KressinFlix Logo" />
-            </a>
+            </Link>
 
-            <Button as="a" className="ButtonLink" href="/">
+            <Button as={Link} className="ButtonLink" to="/cadastro/video">
                 Novo vídeo
             </Button>
         </nav>
