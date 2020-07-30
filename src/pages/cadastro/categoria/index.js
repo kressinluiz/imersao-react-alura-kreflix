@@ -1,55 +1,66 @@
-import React, {useState} from 'react';
-import PageDefault from '../../../components/PageDefault';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import PageDefault from '../../../components/PageDefault';
 import FormField from '../../../components/FormField';
+import Button from '../../../components/Button';
 
-function CadastroCategoria(){
+function CadastroCategoria() {
   const valoresIniciais = {
     nome: '',
     descricao: '',
     cor: '',
-  }
-  const [categorias, setCategorias] = useState([]); //se passa lista, tem que passar uma lista
-  const [Values, setValues] = useState(valoresIniciais); //se passa texto, tem que passar texto
-  
+  };
+  const [categorias, setCategorias] = useState([]); // se passa lista, tem que passar uma lista
+  const [Values, setValues] = useState(valoresIniciais); // se passa texto, tem que passar texto
 
-  //chave: nome, descricao, cor
-  //valor: valor atribuido
-  function setValue( chave, valor ) {
+  // chave: nome, descricao, cor
+  // valor: valor atribuido
+  function setValue(chave, valor) {
     setValues(
       {
         ...Values,
         [chave]: valor,
-      }
-    )
-  }
-
-  function handleChange(infosDoEvento){
-    setValue(
-      infosDoEvento.target.getAttribute('name'), 
-      infosDoEvento.target.value
+      },
     );
   }
 
-  //desestruturação do array nomeDaCategoria
-  //'Filmes' = valor inicial
-  //nomeDaCategoria = valor armazenado do nome da categoria
-  //setNomeDaCategoria = função que será utilizada para mudar a categoria
+  function handleChange(infosDoEvento) {
+    setValue(
+      infosDoEvento.target.getAttribute('name'),
+      infosDoEvento.target.value,
+    );
+  }
 
-    return (
-      <PageDefault>
-        <h1>Cadastro de Categoria: {Values.nome}</h1>
+  useEffect(() => {
+    console.log('alo alo w brasil');
+    const URL_TOP = 'http://localhost:8080/categorias';
+    fetch(URL_TOP)
+      .then(async (respostaDoServidor) => {
+        const resposta = await respostaDoServidor.json();
+        setCategorias([
+          ...resposta,
+        ]);
+      });
+  }, []);
 
-        <form onSubmit={function handleSubmit(infosDoEvento) {
-          infosDoEvento.preventDefault()
-          //console.log('Você tentou enviar o form!')
-          setCategorias([
-            ...categorias,
-            Values
-          ]);
+  return (
+    <PageDefault>
+      <h1>
+        Cadastro de Categoria:
+        {Values.nome}
+      </h1>
 
-          setValues(valoresIniciais)
-        }}>
+      <form onSubmit={function handleSubmit(infosDoEvento) {
+        infosDoEvento.preventDefault();
+        // console.log('Você tentou enviar o form!')
+        setCategorias([
+          ...categorias,
+          Values,
+        ]);
+
+        setValues(valoresIniciais);
+      }}
+      >
 
         <FormField
           label="Nome da Categoria"
@@ -61,7 +72,7 @@ function CadastroCategoria(){
 
         <FormField
           label="Descrição"
-          type="text"
+          type="textarea"
           name="descricao"
           value={Values.descricao}
           onChange={handleChange}
@@ -74,29 +85,33 @@ function CadastroCategoria(){
           value={Values.cor}
           onChange={handleChange}
         />
-      
-        <button>
+
+        <Button>
           Cadastrar
-        </button>
-        </form>
+        </Button>
 
-        <ul>
-          {categorias.map( (categoria, indice) => {
-            return (
-              <li key={`${categoria}${indice}`}>
-                {categoria.nome}
-              </li>
-            )
-          })}
-        </ul>
+      </form>
 
+      {categorias.length === 0 && (
+        <div>
+          Loading...
+        </div>
+      )}
 
-        <Link to="/">
-          Ir para home
-        </Link>
+      <ul>
+        {categorias.map((categoria, indice) => (
+          <li key={`${categoria}${indice}`}>
+            {categoria.nome}
+          </li>
+        ))}
+      </ul>
 
-      </PageDefault>
-    )
-  }
+      <Link to="/">
+        Ir para home
+      </Link>
 
-  export default CadastroCategoria;
+    </PageDefault>
+  );
+}
+
+export default CadastroCategoria;
