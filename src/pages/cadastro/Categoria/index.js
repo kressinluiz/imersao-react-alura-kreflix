@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import PageDefault from '../../../components/PageDefault';
 import FormField from '../../../components/FormField';
 import Button from '../../../components/Button';
+import useForm from '../../../hooks/useForm';
 
 function CadastroCategoria() {
   const valoresIniciais = {
@@ -10,32 +11,16 @@ function CadastroCategoria() {
     descricao: '',
     cor: '',
   };
-  const [categorias, setCategorias] = useState([]); // se passa lista, tem que passar uma lista
-  const [Values, setValues] = useState(valoresIniciais); // se passa texto, tem que passar texto
 
-  // chave: nome, descricao, cor
-  // valor: valor atribuido
-  function setValue(chave, valor) {
-    setValues(
-      {
-        ...Values,
-        [chave]: valor,
-      },
-    );
-  }
+  const { handleChange, values, clearForm } = useForm(valoresIniciais);
 
-  function handleChange(infosDoEvento) {
-    setValue(
-      infosDoEvento.target.getAttribute('name'),
-      infosDoEvento.target.value,
-    );
-  }
+  const [categorias, setCategorias] = useState([]);
 
   useEffect(() => {
-    console.log('alo alo w brasil');
     const URL_TOP = window.location.hostname.includes('localhost')
       ? 'http://localhost:8080/categorias'
-      : 'https://devkreflix.herokuapp.com/categorias';
+      : 'https://devsoutinhoflix.herokuapp.com/categorias';
+    // E a ju ama variáveis
     fetch(URL_TOP)
       .then(async (respostaDoServidor) => {
         const resposta = await respostaDoServidor.json();
@@ -49,26 +34,25 @@ function CadastroCategoria() {
     <PageDefault>
       <h1>
         Cadastro de Categoria:
-        {Values.nome}
+        {values.nome}
       </h1>
 
       <form onSubmit={function handleSubmit(infosDoEvento) {
+        console.log(infosDoEvento);
         infosDoEvento.preventDefault();
-        // console.log('Você tentou enviar o form!')
         setCategorias([
           ...categorias,
-          Values,
+          values,
         ]);
 
-        setValues(valoresIniciais);
+        clearForm();
       }}
       >
 
         <FormField
           label="Nome da Categoria"
-          type="text"
           name="nome"
-          value={Values.nome}
+          value={values.nome}
           onChange={handleChange}
         />
 
@@ -76,7 +60,7 @@ function CadastroCategoria() {
           label="Descrição"
           type="textarea"
           name="descricao"
-          value={Values.descricao}
+          value={values.descricao}
           onChange={handleChange}
         />
 
@@ -84,26 +68,26 @@ function CadastroCategoria() {
           label="Cor"
           type="color"
           name="cor"
-          value={Values.cor}
+          value={values.cor}
           onChange={handleChange}
         />
 
-        <Button>
+        <Button as="button" type="submit">
           Cadastrar
         </Button>
-
       </form>
 
       {categorias.length === 0 && (
         <div>
+          {/* Cargando... */}
           Loading...
         </div>
       )}
 
       <ul>
-        {categorias.map((categoria, indice) => (
-          <li key={`${categoria}${indice}`}>
-            {categoria.nome}
+        {categorias.map((categoria) => (
+          <li key={`${categoria.titulo}`}>
+            {categoria.titulo}
           </li>
         ))}
       </ul>
@@ -111,7 +95,6 @@ function CadastroCategoria() {
       <Link to="/">
         Ir para home
       </Link>
-
     </PageDefault>
   );
 }

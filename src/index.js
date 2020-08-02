@@ -1,27 +1,23 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import home from './pages/home';
 
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import CadastroVideo from './pages/cadastro/video'
-import CadastroCategoria from './pages/cadastro/categoria';
+import Home from './pages/Home';
+import CadastroVideo from './pages/cadastro/Video';
+import CadastroCategoria from './pages/cadastro/Categoria';
 
-// Os paths encaminhados que não corresponderem a nenhuma rota, serão direcionados ao component indicado pela rota sem path.
-
-//desafio master blaster na descrição 
-const Pagina404 = () => (<div>Página 404</div>)
+// Desafio master blaster na descrição
+const Pagina404 = () => (<div>Página 404</div>);
 
 ReactDOM.render(
-
   <BrowserRouter>
     <Switch>
-     <Route path="/" component={home} exact />
-     <Route path="/cadastro/video" component={CadastroVideo} /> 
-     <Route path="/cadastro/categoria" component={CadastroCategoria} /> 
-     <Route component={Pagina404} />
+      <Route path="/" component={Home} exact />
+      <Route path="/cadastro/Video" component={CadastroVideo} />
+      <Route path="/cadastro/Categoria" component={CadastroCategoria} />
+      <Route component={Pagina404} />
     </Switch>
   </BrowserRouter>,
-
-  document.getElementById('root')
+  document.getElementById('root'),
 );

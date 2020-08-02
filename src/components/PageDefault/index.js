@@ -1,7 +1,7 @@
 import React from 'react';
+import styled, { css } from 'styled-components';
 import Menu from '../Menu';
 import Footer from '../Footer';
-import styled from 'styled-components';
 
 const Main = styled.main`
     background-color: var(--black);
@@ -9,22 +9,25 @@ const Main = styled.main`
     flex: 1;
     padding-top: 50px;
     padding-left: 5%;
-    padding-top: 5%;
+    padding-right: 5%;
+    ${({ paddingAll }) => css`
+      padding: ${paddingAll};
+    `}
 `;
 
-//tag vazia = fragment
-//possível preencher com React.Fragment
+// tag vazia = fragment
+// possível preencher com React.Fragment
 
-function PageDefault(props) {
-    return (
-      <>
-          <Menu />
-            <Main>
-                {props.children}
-            </Main>
-          <Footer />
-      </>  
-    );
+function PageDefault({ children, paddingAll }) {
+  return (
+    <>
+      <Menu />
+      <Main paddingAll={paddingAll}>
+        {children}
+      </Main>
+      <Footer />
+    </>
+  );
 }
 
 export default PageDefault;
