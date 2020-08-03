@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import styled from 'styled-components';
 import PageDefault from '../../../components/PageDefault';
 import FormField from '../../../components/FormField';
 import Button from '../../../components/Button';
 import useForm from '../../../hooks/useForm';
+import categoriasRepository from '../../../repositories/categorias';
 
 function CadastroCategoria() {
   const valoresIniciais = {
@@ -13,10 +15,18 @@ function CadastroCategoria() {
   };
 
   const { handleChange, values, clearForm } = useForm(valoresIniciais);
-
+  const history = useHistory();
   const [categorias, setCategorias] = useState([]);
 
   useEffect(() => {
+    categoriasRepository
+      .getAll()
+      .then((categoriasFromServer) => {
+        console.log(categoriasFromServer);
+        setCategorias(categoriasFromServer);
+      });
+  }, []);
+  /* {
     const URL_TOP = window.location.hostname.includes('localhost')
       ? 'http://localhost:8080/categorias'
       : 'https://devsoutinhoflix.herokuapp.com/categorias';
@@ -28,7 +38,15 @@ function CadastroCategoria() {
           ...resposta,
         ]);
       });
-  }, []);
+  } */
+
+  function handleEdit(id) {
+    console.log('Tentou editar', id);
+  }
+
+  function handleDelete(e) {
+    console.log(e.titulo);
+  }
 
   return (
     <PageDefault>
@@ -38,13 +56,15 @@ function CadastroCategoria() {
       </h1>
 
       <form onSubmit={function handleSubmit(infosDoEvento) {
-        console.log(infosDoEvento);
         infosDoEvento.preventDefault();
-        setCategorias([
-          ...categorias,
-          values,
-        ]);
 
+        categoriasRepository.create({
+          titulo: values.nome,
+          cor: values.cor,
+          link_extra: {
+            text: values.descricao,
+          },
+        });
         clearForm();
       }}
       >
@@ -73,28 +93,30 @@ function CadastroCategoria() {
         />
 
         <Button as="button" type="submit">
-          Cadastrar
+          Cadastrar Categoria
         </Button>
       </form>
 
       {categorias.length === 0 && (
         <div>
-          {/* Cargando... */}
           Loading...
         </div>
       )}
+
+      <h1>
+        Lista de Categorias
+      </h1>
 
       <ul>
         {categorias.map((categoria) => (
           <li key={`${categoria.titulo}`}>
             {categoria.titulo}
+            <Button onClick={() => handleEdit(categoria)}>Editar</Button>
+            <Button onClick={() => handleDelete(categoria)}>Deletar</Button>
           </li>
         ))}
       </ul>
 
-      <Link to="/">
-        Ir para home
-      </Link>
     </PageDefault>
   );
 }

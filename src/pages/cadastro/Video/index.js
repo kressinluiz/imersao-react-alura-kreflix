@@ -27,7 +27,7 @@ function CadastroVideo() {
 
   return (
     <PageDefault paddingAll={10}>
-      <h1>Cadastro de Video</h1>
+      <h1>Cadastro de Vídeo</h1>
 
       <form onSubmit={(event) => {
         event.preventDefault();
@@ -71,16 +71,12 @@ function CadastroVideo() {
         />
 
         <Button as="button" type="submit">
-          Cadastrar
+          Cadastrar Vídeo
         </Button>
       </form>
 
       <br />
       <br />
-
-      <Link to="/cadastro/categoria">
-        Cadastrar Categoria
-      </Link>
     </PageDefault>
   );
 }
